@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/quiz_question"
+        android:layout_width="wrap_content"
+        android:layout_height="210dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/card_background"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:text="What does the term 'COUT' mean ?? "
+        android:textColor="#F44336"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/quiz_answer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/quiz_question"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="-202dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/answer_background"
+        android:gravity="center"
+        android:text="Console Output"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:visibility="invisible"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/first_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quiz_question"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/option_background"
+        android:gravity="center"
+        android:text="Computer Output"
+        android:textAlignment="center"
+        android:textSize="40sp" />
+    <TextView
+        android:id="@+id/second_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/first_option"
+        android:layout_alignLeft="@id/first_option"
+        android:layout_alignRight="@id/first_option"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/option_background"
+        android:gravity="center"
+        android:text="Console Output"
+        android:textSize="40sp" />
+    <TextView
+        android:id="@+id/third_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/second_option"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/option_background"
+        android:gravity="center"
+        android:text="Capture Output"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="13dp"
+        android:text="Reset"
+        android:textSize="40sp"
+        android:background="@color/my_red_color"/>
+
+
+    <ImageView
+        android:id="@+id/toggle_visibility"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginStart="47dp"
+        android:layout_marginBottom="17dp"
+        android:src="@drawable/ic_unview_eye" />
+
+</RelativeLayout>
