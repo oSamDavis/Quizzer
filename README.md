@@ -1,4 +1,4 @@
-## Lab 2
+## Lab 2 :
 
 <img src= https://imgur.com/hGmLxgH.gif width=200><br>
 
