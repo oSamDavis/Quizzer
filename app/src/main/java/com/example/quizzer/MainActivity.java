@@ -6,16 +6,33 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
     boolean isShowingAnswer = true;
+    FlashcardDatabase flashcardDatabase;
+    List <Flashcard> allFlashcards;
+    int currentCardDisplayedIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+        allFlashcards = flashcardDatabase.getAllCards();
+
+        if(allFlashcards!= null && allFlashcards.size() > 0)
+        {
+            ((TextView) findViewById(R.id.quiz_question)).setText(allFlashcards.get(0).getQuestion());
+            ((TextView) findViewById(R.id.quiz_answer)).setText(allFlashcards.get(0).getAnswer());
+
+        }
 
         findViewById(R.id.quiz_question).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +132,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.next_icon_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentCardDisplayedIndex++;
+
+                if(currentCardDisplayedIndex > allFlashcards.size() - 1){
+                    currentCardDisplayedIndex = 0;
+                }
+
+                ((TextView) findViewById(R.id.quiz_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                ((TextView) findViewById(R.id.quiz_answer)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+            }
+        });
+
 
     }
 
@@ -127,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
             String s2 = data.getExtras().getString("string2");
             ((TextView) findViewById(R.id.quiz_question)).setText(s1);
             ((TextView) findViewById(R.id.quiz_answer)).setText(s2);
+            flashcardDatabase.insertCard(new Flashcard(s1,s2));
+            allFlashcards = flashcardDatabase.getAllCards();
         }
+
     }
+
+
+
+
 }
