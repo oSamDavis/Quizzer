@@ -1,8 +1,12 @@
 package com.example.quizzer;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,8 +41,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.quiz_question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.quiz_question).setVisibility(View.INVISIBLE);
-                findViewById(R.id.quiz_answer).setVisibility(View.VISIBLE);
+                View answerSideView = findViewById(R.id.quiz_answer);
+                View questionSideView = findViewById(R.id.quiz_question);
+
+                // getting center for the clipping center
+                int cx = answerSideView.getWidth()/2;
+                int cy = answerSideView.getHeight()/2;
+
+                // getting final radius for clipping circle
+                float finalRadius = (float) Math.hypot(cx,cy);
+
+                //creating Animator for this view (with start radius as zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(answerSideView,cx,cy,0f,finalRadius);
+
+                //hide the question and show the answer to prepare for playing the animation
+                questionSideView.setVisibility(View.INVISIBLE);
+                answerSideView.setVisibility(View.VISIBLE);
+                anim.setDuration(3000);
+                anim.start();
+
                 findViewById(R.id.first_option).setVisibility(View.INVISIBLE);
                 findViewById(R.id.second_option).setVisibility(View.INVISIBLE);
                 findViewById(R.id.third_option).setVisibility(View.INVISIBLE);
@@ -129,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,Add_Card_Activity.class);
                 MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
             }
         });
 
@@ -141,8 +163,36 @@ public class MainActivity extends AppCompatActivity {
                     currentCardDisplayedIndex = 0;
                 }
 
-                ((TextView) findViewById(R.id.quiz_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
-                ((TextView) findViewById(R.id.quiz_answer)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+
+                final Animation leftOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_out);
+                final Animation rightInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_in);
+
+                leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        findViewById(R.id.quiz_question).startAnimation(rightInAnim);
+                        ((TextView) findViewById(R.id.quiz_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                        ((TextView) findViewById(R.id.quiz_answer)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                findViewById(R.id.quiz_question).startAnimation(leftOutAnim);
+
+
+
+
+
             }
         });
 
@@ -163,6 +213,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
+
+
+
+
 
 
 
